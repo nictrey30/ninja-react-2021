@@ -1,3 +1,5 @@
+import React from 'react';
+
 const navbar = () => {
   return (
     <nav className='navbar'>
@@ -5,7 +7,7 @@ const navbar = () => {
       <div className='links'>
         <a href='/'>Home</a>
         <a href='/create'>New Blog</a>
-        <button></button>
+        <button>click me</button>
       </div>
     </nav>
   );
