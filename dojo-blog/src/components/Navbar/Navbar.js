@@ -7,7 +7,6 @@ const navbar = () => {
       <div className='links'>
         <a href='/'>Home</a>
         <a href='/create'>New Blog</a>
-        <button>click me</button>
       </div>
     </nav>
   );
