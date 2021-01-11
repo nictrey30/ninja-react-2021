@@ -13,7 +13,13 @@ const Home = () => {
   }, []);
 
   const handleDelete = (id) => {
-    setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== id));
+    // setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== id));
+    axios
+      .delete(`http://localhost:8000/blogs/${id}`)
+      .then((data) => {
+        setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== id));
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
