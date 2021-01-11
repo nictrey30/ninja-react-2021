@@ -1,31 +1,33 @@
 import { useState, useEffect } from 'react';
 import BlogList from '../BlogList/BlogList';
+import axios from 'axios';
 
 const Home = () => {
-  const [blogs, setBlogs] = useState([
-    { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
-    { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
-    { title: 'Webdev tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
-  ]);
-  const [name, setName] = useState('mario');
+  const [blogs, setBlogs] = useState('');
+
+  // we can't use async in useEffect hook
   useEffect(() => {
-    console.log('useEffect ran: ', name);
-  }, [name]);
+    fetchData()
+      .then((result) => setBlogs(result))
+      .catch((err) => console.log(err));
+  }, []);
+
   const handleDelete = (id) => {
     setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== id));
   };
+
   return (
     <div className='home'>
-      <BlogList blogs={blogs} title='All Blogs' handleDelete={handleDelete} />
-      <button
-        onClick={() =>
-          setName((prevName) => (prevName === 'mario' ? 'luigi' : 'mario'))
-        }
-      >
-        change name
-      </button>
+      {blogs && (
+        <BlogList blogs={blogs} title='All Blogs' handleDelete={handleDelete} />
+      )}
     </div>
   );
+};
+
+const fetchData = async () => {
+  const result = await axios.get('http://localhost:8000/blogs');
+  return result.data;
 };
 
 export default Home;
